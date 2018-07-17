@@ -1,4 +1,14 @@
-];
+var compiler = {};
+
+compiler.input = function(s) {
+	return {
+		s : s,
+		p : -1,
+		get : function() {
+			var p = this.p;
+			var s = this.s;
+			if (p < s.length && p >= 0) {
+				return s[p];
 			} else {
 				return null;
 			}
