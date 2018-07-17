@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>test</title>
+<script src="compiler.js"></script>
+</head>
+
+<body>
+<script>
+
+var prog = compiler.compile("y=w*x+b");
+document.write(prog.run({w:2, x: 3, b: 4}));
+</script>
+
+</body>
+</html>
