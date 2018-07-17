@@ -1,13 +1,13 @@
 <html>
 <head>
 <title>test</title>
-<script type="text/javascript" src="compiler.js"></script>
+<script type="text/javascript" src="FormularEvaluator.js"></script>
 </head>
 
 <body>
 <script>
 
-var prog = compiler.compile("y=w*x+b; y=y*2; ");
+var prog = FormularEvaluator.compile("y=w*x+b; y=y*2; ");
 var ctx = {w:2, x: 3, b: 4};
 
 var ret = prog.run(ctx);

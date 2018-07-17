@@ -1,6 +1,6 @@
-var compiler = {};
+var FormularEvaluator = {};
 
-compiler.input = function(s) {
+FormularEvaluator.input = function(s) {
 	return {
 		s : s,
 		p : -1,
@@ -31,7 +31,7 @@ compiler.input = function(s) {
 	};
 };
 
-compiler.popExecute = function(ts, ops, program) {
+FormularEvaluator.popExecute = function(ts, ops, program) {
 	while (ts.length > 0) {
 		var token = ts.pop();
 		var tcode = token.code;
@@ -125,7 +125,7 @@ compiler.popExecute = function(ts, ops, program) {
 		} else if (',' == tcode) {
 
 		} else if (')' == tcode) {
-			compiler.popExecute(ts, '+-*/%ICNP),', program);
+			FormularEvaluator.popExecute(ts, '+-*/%ICNP),', program);
 
 			var lb = ts.pop();
 			if (lb == null || lb.code != '(') {
@@ -233,7 +233,7 @@ compiler.popExecute = function(ts, ops, program) {
 	}
 };
 
-compiler.acceptors = [
+FormularEvaluator.acceptors = [
 		{
 			code : 'I',
 			name : 'ID',
@@ -255,7 +255,7 @@ compiler.acceptors = [
 									+ '->' + input.s;
 						}
 					}
-					// compiler.popExecute(ts,'');
+					// FormularEvaluator.popExecute(ts,'');
 					ts.push({
 						code : 'I',
 						str : str
@@ -331,7 +331,7 @@ compiler.acceptors = [
 							throw 'unexpected token "' + str + '"@' + input.p
 									+ '->' + input.s;
 						} else {
-							compiler.popExecute(ts, '+-*/%)ICPN', program);
+							FormularEvaluator.popExecute(ts, '+-*/%)ICPN', program);
 						}
 					}
 					ts.push({
@@ -371,7 +371,7 @@ compiler.acceptors = [
 									+ '->' + input.s;
 						}
 					}
-					compiler.popExecute(ts, '+-*/%)ICPN', program);
+					FormularEvaluator.popExecute(ts, '+-*/%)ICPN', program);
 					ts.push({
 						code : '-',
 						str : str
@@ -401,7 +401,7 @@ compiler.acceptors = [
 							throw 'unexpected token "' + str + '"@' + input.p
 									+ '->' + input.s;
 						} else {
-							compiler.popExecute(ts, '*/%)ICPN', program);
+							FormularEvaluator.popExecute(ts, '*/%)ICPN', program);
 						}
 					}
 					ts.push({
@@ -433,7 +433,7 @@ compiler.acceptors = [
 							throw 'unexpected token "' + str + '"@' + input.p
 									+ '->' + input.s;
 						} else {
-							compiler.popExecute(ts, '*/%)ICPN', program);
+							FormularEvaluator.popExecute(ts, '*/%)ICPN', program);
 						}
 					}
 					ts.push({
@@ -465,7 +465,7 @@ compiler.acceptors = [
 							throw 'unexpected token "' + str + '"@' + input.p
 									+ '->' + input.s;
 						} else {
-							compiler.popExecute(ts, '*/%)ICPN', program);
+							FormularEvaluator.popExecute(ts, '*/%)ICPN', program);
 						}
 					}
 					ts.push({
@@ -593,7 +593,7 @@ compiler.acceptors = [
 									+ '->' + input.s;
 						}
 					}
-					compiler.popExecute(ts, '+-*/%)ICPN', program);
+					FormularEvaluator.popExecute(ts, '+-*/%)ICPN', program);
 					ts.push({
 						code : ',',
 						str : str
@@ -625,7 +625,7 @@ compiler.acceptors = [
 									+ '->' + input.s;
 						}
 					}
-					compiler.popExecute(ts, '=+-*/%)ICPN', program);
+					FormularEvaluator.popExecute(ts, '=+-*/%)ICPN', program);
 
 					return true;
 				} else {
@@ -634,14 +634,14 @@ compiler.acceptors = [
 			}
 		} ];
 
-compiler.compile = function(s) {
+FormularEvaluator.compile = function(s) {
 	s = s.replace(/[^0-9a-z\.=\+\-\*\/\(\)%,;]/g, '');
 
 	var program = [];
-	var accs = compiler.acceptors;
+	var accs = FormularEvaluator.acceptors;
 	var len = accs.length;
 
-	var input = compiler.input(s);
+	var input = FormularEvaluator.input(s);
 	var ts = [];
 
 	while (input.hasNext()) {
@@ -660,7 +660,7 @@ compiler.compile = function(s) {
 			console.log(ts);
 			throw ts;
 		}
-		compiler.popExecute(ts, '=+-*/%()ICPN', program);
+		FormularEvaluator.popExecute(ts, '=+-*/%()ICPN', program);
 	}
 
 	return {
