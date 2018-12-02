@@ -27,3 +27,5 @@ A Handcrafted JavaScript module for evaluating Formular.
           e  - 自然对数的底;
           pi - 圆周率.
 
+
+应用于微信小程序“画曲线”。因为微信小程序不允许使用eval。
